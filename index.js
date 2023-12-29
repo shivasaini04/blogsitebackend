@@ -21,7 +21,7 @@ const uploadMiddleware = multer({dest: 'uploads/'});
 const saltRounds = 10;
 const secret = crypto.randomBytes(32).toString('hex');
 
-app.use(cors({ credentials: true, origin: base_url }));
+app.use(cors({ credentials: true, origin:"http://localhost:3000"}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads',express.static(__dirname +'/uploads'));
@@ -181,4 +181,3 @@ app.listen(4000, () => {
 });
 
 
-// MONGO_URL="mongodb+srv://myblog1:myblog1234@cluster0.6fty7cj.mongodb.net/?retryWrites=true&w=majority"
