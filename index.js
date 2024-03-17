@@ -113,6 +113,7 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res) =>{
       author:info.id,
     });
     res.json({postDoc});
+    console.log(postDoc.cover);
   });
 })
 
