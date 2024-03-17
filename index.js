@@ -9,23 +9,29 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
-const path = require('path'); 
+const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 const { promisify } = require('util');
 dotenv.config();
 const base_url = process.env.BASE_URL;
 
-const uploadMiddleware = multer({dest: 'uploads/'});
+const uploadMiddleware = multer({ dest: 'uploads/' });
 
 const saltRounds = 10;
 const secret = crypto.randomBytes(32).toString('hex');
 
-// Updated CORS configuration
-app.use(cors({ credentials: true, origin: "https://shivasainiblog.vercel.app" }));
+// CORS configuration
+const corsOptions = {
+  origin: "https://shivasainiblog.vercel.app",
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+// Other middleware functions
 app.use(express.json());
 app.use(cookieParser());
-app.use('/uploads',express.static(__dirname +'/uploads'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 // Use a single promise-based method for renaming files
 const renameAsync = promisify(fs.rename);
