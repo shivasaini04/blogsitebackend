@@ -21,7 +21,8 @@ const uploadMiddleware = multer({dest: 'uploads/'});
 const saltRounds = 10;
 const secret = crypto.randomBytes(32).toString('hex');
 
-app.use(cors({ credentials: true, origin:"http://localhost:3000"}));
+// Updated CORS configuration
+app.use(cors({ credentials: true, origin: "https://shivasainiblog.vercel.app" }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads',express.static(__dirname +'/uploads'));
@@ -38,6 +39,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error(err));
 // mongoose.connect('mongodb://localhost/myblog', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
